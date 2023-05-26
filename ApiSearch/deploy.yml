@@ -1,0 +1,21 @@
+﻿apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: searchapi-statefulset
+spec:
+  replicas: 3
+  serviceName: searchapi-service
+  selector:
+    matchLabels:
+      app: searchapi
+  template:
+    metadata:
+      labels:
+        app: searchapi
+    spec:
+      containers:
+        - name: searchapi
+          image: nitrozeus1/search-engine-api-search:latest
+          imagePullPolicy: Always 
+          ports:
+            - containerPort: 80

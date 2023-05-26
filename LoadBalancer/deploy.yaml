@@ -1,0 +1,22 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-balancer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load-balancer
+  template:
+    metadata:
+      labels:
+        app: load-balancer
+    spec:
+      containers:
+        - name: load-balancer
+          image: nitrozeus1/search-engine-searchloadbalancer:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              
+              
