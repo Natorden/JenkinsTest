@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: load-balancer
-          image: nitrozeus1/search-engine-searchloadbalancer:latest
+          image: ${DOCKER_USER}/search-engine-searchloadbalancer:${BUILD_NUMBER}
           imagePullPolicy: Always
           ports:
             - containerPort: 80

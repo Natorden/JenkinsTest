@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: searchapi
-          image: nitrozeus1/search-engine-api-search:latest
+          image: ${DOCKER_USER}/search-engine-api-search:${BUILD_NUMBER}
           imagePullPolicy: Always 
           ports:
             - containerPort: 80
