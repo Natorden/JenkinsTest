@@ -18,14 +18,21 @@ pipeline {
                         }
                     }
   
-      stage("Build") {
+      stage("Build NET") {
           steps {
               sh "dotnet build --configuration Release"
-              sh "docker compose --env-file .env build"
-              sh "docker compose --env-file .env up"
+
           }
       }
-
+      
+      stage("BUILD CONTAINERS") {
+                steps {
+                    sh "docker compose --env-file .env build"
+                    sh "docker compose --env-file .env up -d"
+      
+                }
+            }
+      
       stage("Push to registry") {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DH_PASSWORD', usernameVariable: 'DH_USERNAME')]) {
