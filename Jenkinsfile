@@ -22,6 +22,14 @@ pipeline {
                 }
             }
         }
+        stage('Deploying React.js container to Kubernetes') {
+            steps {
+                script {
+                    kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+                }
+            }
+        }
+        
         stage("Deploy") {
             steps {
                 build job: 'SynopsisRollback', parameters: [[$class: 'StringParameterValue', name: 'DEPLOY_NUMBER', value: "${BUILD_NUMBER}"]]
