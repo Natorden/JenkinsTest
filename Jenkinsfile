@@ -21,12 +21,13 @@ pipeline {
   
     stage('Build image') {
       steps{
+      echo 'build image'
 //       sh 'docker-compose build'  
-        script {
-          dockerImageApi = docker.build dockerimagenameapi
-          dockerImageWeb = docker.build dockerimagenameweb
-          dockerImageLoad = docker.build dockerimagenameload
-        }
+//         script {
+//           dockerImageApi = docker.build dockerimagenameapi
+//           dockerImageWeb = docker.build dockerimagenameweb
+//           dockerImageLoad = docker.build dockerimagenameload
+//         }
         
       }
     }
