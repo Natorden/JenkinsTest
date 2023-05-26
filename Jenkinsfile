@@ -1,6 +1,6 @@
 pipeline {
   agent any
-
+    stages {
       stage("EchoNumber") {
           steps {
               echo "RUNNING ON ${env.BUILD_ID}"
