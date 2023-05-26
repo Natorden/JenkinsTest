@@ -6,24 +6,25 @@ pipeline {
               echo "RUNNING ON ${BUILD_NUMBER}"
           }
       }
+      
+      stage("Clean containers") {
+                        steps {
+                            script {
+                                try {
+                                    sh "docker compose --env-file .env down"
+                                }
+                                finally { }
+                            }
+                        }
+                    }
   
       stage("Build") {
           steps {
               sh "dotnet build --configuration Release"
-              sh "docker compose up --env-file .env --build"
+              sh "docker compose --env-file .env build"
+              sh "docker compose up"
           }
       }
-      
-      stage("Clean containers") {
-                  steps {
-                      script {
-                          try {
-                              sh "docker compose --env-file .env down"
-                          }
-                          finally { }
-                      }
-                  }
-              }
 
       stage("Push to registry") {
             steps {
