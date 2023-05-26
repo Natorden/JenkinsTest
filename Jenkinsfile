@@ -1,13 +1,13 @@
 pipeline {
 
-//   environment {
-//     dockerimagenameapi = "faustis1337/search-engine-api-search"
-//     dockerimagenameweb = "faustis1337/search-engine-frontend"
-//     dockerimagenameload = "faustis1337/search-engine-searchloadbalancer"
-//     dockerImageApi = ""
-//     dockerImageWeb = ""
-//     dockerImageLoad = ""
-//   }
+  environment {
+    dockerimagenameapi = "faustis1337/search-engine-api-search"
+    dockerimagenameweb = "faustis1337/search-engine-frontend"
+    dockerimagenameload = "faustis1337/search-engine-searchloadbalancer"
+    dockerImageApi = ""
+    dockerImageWeb = ""
+    dockerImageLoad = ""
+  }
 
   agent any
 
@@ -21,22 +21,22 @@ pipeline {
   
     stage('Build image') {
       steps{
-      sh 'docker-compose build'  
-//         script {
-//           dockerImageApi = docker.build dockerimagenameapi
-//           dockerImageWeb = docker.build dockerimagenameweb
-//           dockerImageLoad = docker.build dockerimagenameload
-//         }
+//       sh 'docker-compose build'  
+        script {
+          dockerImageApi = docker.build dockerimagenameapi
+          dockerImageWeb = docker.build dockerimagenameweb
+          dockerImageLoad = docker.build dockerimagenameload
+        }
         
       }
     }
     
-        stage('Deploy') {
-          steps{
-                sh "docker-compose rm"
-                sh "docker-compose up -d"
-          }
-        }
+//         stage('Deploy') {
+//           steps{
+//                 sh "docker-compose rm"
+//                 sh "docker-compose up -d"
+//           }
+//         }
 
 //     stage('Pushing Image') {
 //       environment {
