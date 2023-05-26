@@ -28,13 +28,5 @@ pipeline {
                 build job: 'SynopsisRollback', parameters: [[$class: 'StringParameterValue', name: 'DEPLOY_NUMBER', value: "${BUILD_NUMBER}"]]
             }   
         }
-        
-        stage('Deploying to Kubernetes') {
-                    steps {
-                        script {
-                            kubernetesDeploy(configs: "ApiSearch/deployment.yaml", "ApiSearch/service.yaml", "LoadBalancer/deployment.yaml", "LoadBalancer/service.yaml", "WebSearch/deployment.yaml", "WebSearch/service.yaml")
-                        }
-                    }
-                }
     }
 }
