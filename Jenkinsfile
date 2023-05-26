@@ -13,11 +13,11 @@ pipeline {
 
   stages {
   
-  stage('Checkout Source') {
-        steps {
-          git 'https://github.com/Natorden/JenkinsTest'
-        }
-      }
+  // stage('Checkout Source') {
+  //       steps {
+  //         git 'https://github.com/Natorden/JenkinsTest'
+  //       }
+  //     }
   
     stage('Build image') {
       steps{
