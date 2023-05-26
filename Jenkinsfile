@@ -3,7 +3,7 @@ pipeline {
     stages {
       stage("EchoNumber") {
           steps {
-              echo "RUNNING ON ${env.BUILD_NUMBER}"
+              echo "RUNNING ON ${BUILD_NUMBER}"
           }
       }
   
