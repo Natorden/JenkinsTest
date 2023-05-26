@@ -4,11 +4,7 @@ pipeline {
         string defaultValue: "", name: 'DEPLOY_NUMBER', trim: true
     }
     stages {
-            stage("Remove Kubernetes") {
-                steps {
-                sh "kubectl delete pods,deployments,statefulsets,pvc,pv,services --all"
-                }
-            }
+
             stage("Deploy") {
                         steps {
                         sh "kubectl apply -f LoadBalancer/deploy.yaml --env-file .env "
