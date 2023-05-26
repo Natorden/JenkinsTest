@@ -21,7 +21,7 @@ pipeline {
   
     stage('Build image') {
       steps{
-      sh "docker compose build"
+      sh 'docker-compose build'  
 //         script {
 //           dockerImageApi = docker.build dockerimagenameapi
 //           dockerImageWeb = docker.build dockerimagenameweb
@@ -33,8 +33,8 @@ pipeline {
     
         stage('Deploy') {
           steps{
-                sh "docker compose rm"
-                sh "docker compose up -d"
+                sh "docker-compose rm"
+                sh "docker-compose up -d"
           }
         }
 
