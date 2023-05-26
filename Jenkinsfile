@@ -22,6 +22,7 @@ pipeline {
           steps {
               sh "dotnet build --configuration Release"
               sh "docker compose --env-file .env build"
+              sh "docker compose --env-file .env up"
           }
       }
 
