@@ -13,24 +13,12 @@ pipeline {
 
   stages {
   
-  // stage('Checkout Source') {
-  //       steps {
-  //         git 'https://github.com/Natorden/JenkinsTest'
-  //       }
-  //     }
-  
-    stage('Build image') {
-      steps{
-      echo 'build image'
-//       sh 'docker-compose build'  
-//         script {
-//           dockerImageApi = docker.build dockerimagenameapi
-//           dockerImageWeb = docker.build dockerimagenameweb
-//           dockerImageLoad = docker.build dockerimagenameload
-//         }
-        
+      stage("Build") {
+          steps {
+              sh "dotnet build"
+               sh "docker compose build"
+          }
       }
-    }
     
 //         stage('Deploy') {
 //           steps{
