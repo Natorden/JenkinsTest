@@ -1,9 +1,9 @@
 pipeline {
 
   environment {
-    dockerimagenameapi = "nitrozeus1/search-engine-api-search"
-    dockerimagenameweb = "nitrozeus1/search-engine-frontend"
-    dockerimagenameload = "nitrozeus1/search-engine-searchloadbalancer"
+    dockerimagenameapi = "faustis1337/search-engine-api-search"
+    dockerimagenameweb = "faustis1337/search-engine-frontend"
+    dockerimagenameload = "faustis1337/search-engine-searchloadbalancer"
     dockerImageApi = ""
     dockerImageWeb = ""
     dockerImageLoad = ""
