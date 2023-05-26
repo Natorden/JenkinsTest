@@ -12,13 +12,6 @@ pipeline {
   agent any
 
   stages {
-
-    stage('Checkout Source') {
-      steps {
-        git 'https://github.com/Natorden/JenkinsTest.git'
-      }
-    }
-
     stage('Build image') {
       steps{
         script {
