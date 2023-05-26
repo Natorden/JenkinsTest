@@ -10,7 +10,7 @@ pipeline {
       stage("Build") {
           steps {
               sh "dotnet build --configuration Release"
-              sh "docker compose build"
+              sh "docker compose --env-file .env build"
           }
       }
       
@@ -18,7 +18,7 @@ pipeline {
                   steps {
                       script {
                           try {
-                              sh "docker compose down"
+                              sh "docker compose --env-file .env down"
                           }
                           finally { }
                       }
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DH_PASSWORD', usernameVariable: 'DH_USERNAME')]) {
                     sh 'docker login -u $DH_USERNAME -p $DH_PASSWORD'
-                    sh "docker compose push"
+                    sh "docker compose --env-file .env push"
                 }
             }
         }
