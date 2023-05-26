@@ -1,39 +1,53 @@
 pipeline {
-    agent any
-    triggers {
-        pollSCM("H * * * *")
+
+  environment {
+    dockerimagenameapi = "nitrozeus1/search-engine-api-search"
+    dockerimagenameweb = "nitrozeus1/search-engine-frontend"
+    dockerimagenameload = "nitrozeus1/search-engine-searchloadbalancer"
+    dockerImageApi = ""
+    dockerImageWeb = ""
+    dockerImageLoad = ""
+  }
+
+  agent any
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git 'https://github.com/Natorden/JenkinsTest.git'
+      }
     }
-    environment {
-        DEPLOY_NUMBER = "${BUILD_NUMBER}"
+
+    stage('Build image') {
+      steps{
+        script {
+          dockerImageApi = docker.build dockerimagenameapi
+          dockerImageWeb = docker.build dockerimagenameweb
+          dockerImageLoad = docker.build dockerimagenameload
+        }
+      }
     }
-    stages {
-      
-        stage("Build") {
-            steps {
-                sh "dotnet build"
-                sh "docker compose build"
-            }
+
+    stage('Pushing Image') {
+      environment {
+               registryCredential = 'DockerHub'
+           }
+      steps{
+        script {
+          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+            dockerImage.push("latest")
+          }
         }
-        stage("Deliver") {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DH_PASSWORD', usernameVariable: 'DH_USERNAME')]) {
-                    sh 'docker login -u $DH_USERNAME -p $DH_PASSWORD'
-                    sh "docker compose push"
-                }
-            }
-        }
-        stage('Deploying React.js container to Kubernetes') {
-            steps {
-                script {
-                    kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
-                }
-            }
-        }
-        
-        stage("Deploy") {
-            steps {
-                build job: 'SynopsisRollback', parameters: [[$class: 'StringParameterValue', name: 'DEPLOY_NUMBER', value: "${BUILD_NUMBER}"]]
-            }   
-        }
+      }
     }
+
+    stage('Deploying React.js container to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+        }
+      }
+    }
+  }
 }
