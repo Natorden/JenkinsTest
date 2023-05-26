@@ -28,8 +28,6 @@ pipeline {
       stage("BUILD CONTAINERS") {
                 steps {
                     sh "docker compose --env-file .env build"
-                    sh "docker compose --env-file .env up -d"
-      
                 }
             }
       
