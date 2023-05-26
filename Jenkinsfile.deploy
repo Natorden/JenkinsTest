@@ -6,7 +6,7 @@ pipeline {
     stages {
             stage("Remove Kubernetes") {
                 steps {
-                sh "kubectl delete pods,deployments,statefulsets,pvc,pv,services --all"
+                sh "kubectl --username=YOUR_USERNAME --password=YOUR_PASSWORD delete pods,deployments,statefulsets,pvc,pv,services --all"
                 }
             }
             stage("Deploy") {
