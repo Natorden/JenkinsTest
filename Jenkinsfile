@@ -20,16 +20,16 @@ pipeline {
           }
       }
       
-      stage("Clean containers") {
-                  steps {
-                      script {
-                          try {
-                              sh "docker-compose down"
-                          }
-                          finally { }
-                      }
-                  }
-              }
+      // stage("Clean containers") {
+      //             steps {
+      //                 script {
+      //                     try {
+      //                         sh "docker-compose down"
+      //                     }
+      //                     finally { }
+      //                 }
+      //             }
+      //         }
 
       stage("Push to registry") {
             steps {
