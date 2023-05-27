@@ -1,24 +1,11 @@
 pipeline {
-    agent {
-        kubernetes {
-            yamlFile 'ApiSearch/deploy.yaml'
-        }
+  agent any
+
+  stages {
+    stage('Check Directory') {
+      steps {
+        sh 'pwd'
+      }
     }
-    parameters {
-        string defaultValue: "", name: 'DEPLOY_NUMBER', trim: true
-    }
-    stages {
-            stage("Remove Kubernetes") {
-                steps {
-                sh "kubectl delete pods,deployments,statefulsets,services --all"
-                }
-            }
-            
-            stage("Deploy") {
-                        steps {
-                        sh "kubectl apply -f LoadBalancer/deploy.yaml --env-file .env "
-                        sh "kubectl apply -f LoadBalancer/service.yaml"
-                        }
-                    }
-        }
+  }
 }
