@@ -12,7 +12,7 @@ pipeline {
             stage("Deploy") {
                         steps {
                         sh "echo ${DEPLOY_NUMBER}"
-                        sh "kubectl apply -f LoadBalancer/deploy.yaml DOCKER_USER=${DOCKER_USER} DEPLOY_NUMBER=${DEPLOY_NUMBER}"
+                        sh "DOCKER_USER=${DOCKER_USER} DEPLOY_NUMBER=${DEPLOY_NUMBER} kubectl apply -f LoadBalancer/deploy.yaml"
                         }
                     }
         }
