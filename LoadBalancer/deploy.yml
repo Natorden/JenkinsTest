@@ -1,20 +1,20 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: load-balancer-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: load-balancer
   template:
     metadata:
       labels:
-        app: frontend
+        app: load-balancer
     spec:
       containers:
-        - name: frontend
-          image: ${DOCKER_USER}/search-engine-frontend:${BUILD_NUMBER}
+        - name: load-balancer
+          image: faustis1337/search-engine-searchloadbalancer:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -22,13 +22,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: load-balancer-service
 spec:
   type: NodePort
   selector:
-    app: frontend
+    app: load-balancer
   ports:
     - protocol: TCP
-      port: 9023
+      port: 9020
       targetPort: 80
-      nodePort: 30015
+      nodePort: 30016

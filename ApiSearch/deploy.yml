@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: searchapi
-          image: ${DOCKER_USER}/search-engine-api-search:${BUILD_NUMBER}
+          image: faustis1337/search-engine-api-search:latest
           imagePullPolicy: Always 
           ports:
             - containerPort: 80

@@ -3,15 +3,29 @@ pipeline {
     parameters {
         string defaultValue: "", name: 'DEPLOY_NUMBER', trim: true
     }
-    stages {
-            stage("Remove Kubernetes") {
+           stages {
+            stage("Clean kubernetes") {
                 steps {
-                sh "kubectl delete pods,deployments,statefulsets,services --all"
+                sh "kubectl delete pods,deployments,statefulsets,services,pv,pvc,replicasets,configmaps --all"
                 }
             }
+            
+            stage("Clean containers") {
+                                    steps {
+                                        script {
+                                            try {
+                                                sh "docker compose --env-file .env down"
+                                            }
+                                            finally { }
+                                        }
+                                    }
+                                }
+                                
             stage("Deploy") {
                         steps {
-                        sh "DOCKER_USER=${DOCKER_USER} DEPLOY_NUMBER=${DEPLOY_NUMBER} kubectl apply -f LoadBalancer/deploy.yaml"
+                        sh "kubectl apply -f LoadBalancer/deploy.yaml"
+                        sh "kubectl apply -f ApiSearch/deploy.yaml"
+                        sh "kubectl apply -f LoadBalancer/deploy.yaml"
                         }
                     }
         }
