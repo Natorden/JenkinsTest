@@ -1,7 +1,7 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${DOCKER_USER}
+  name: "${DOCKER_USER}"
 spec:
   replicas: 1
   selector:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: load-balancer
-          image: ${DOCKER_USER}/search-engine-searchloadbalancer:${BUILD_NUMBER}
+          image: "${DOCKER_USER}/search-engine-searchloadbalancer:${DEPLOY_NUMBER}"
           imagePullPolicy: Always
           ports:
             - containerPort: 80
