@@ -1,7 +1,27 @@
 pipeline {
     agent {
         kubernetes {
-            label 'kubernetes-agent'
+            yaml '''apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: searchapi-statefulset
+spec:
+  replicas: 3
+  serviceName: searchapi-service
+  selector:
+    matchLabels:
+      app: searchapi
+  template:
+    metadata:
+      labels:
+        app: searchapi
+    spec:
+      containers:
+        - name: searchapi
+          image: faustis1337/search-engine-api-search:17
+          imagePullPolicy: Always 
+          ports:
+            - containerPort: 80'''
         }
     }
     parameters {
