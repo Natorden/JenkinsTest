@@ -20,9 +20,9 @@ pipeline {
                                 
             stage("Deploy") {
                         steps {
-                        sh "kubectl apply -f LoadBalancer/deploy.yaml"
-                        sh "kubectl apply -f ApiSearch/deploy.yaml"
-                        sh "kubectl apply -f LoadBalancer/deploy.yaml"
+                        sh "kubectl apply -f LoadBalancer/deploy.yml"
+                        sh "kubectl apply -f ApiSearch/deploy.yml"
+                        sh "kubectl apply -f LoadBalancer/deploy.yml"
                         }
                     }
         }
