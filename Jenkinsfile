@@ -1,25 +1,23 @@
 pipeline {
   agent any
   
+  environment {
+                DOCKER_USER = credentials('docker-user')
+            }
+  
   
     stages {
       stage("EchoNumber") {
           steps {
+              echo "DOCKER USER ${DOCKER_USER}"
               echo "RUNNING ON ${BUILD_NUMBER}"
           }
       }
-      
-      environment {
-              DISABLE_AUTH = 'true'
-              DB_ENGINE    = 'sqlite'
-              DOCKER_USER = credentials('docker-user')
-          }
           
       stage("Clean containers") {
                         steps {
                             script {
                                 try {
-                                sh "echo $DOCKER_USER"
                                     sh "docker compose --env-file .env down"
                                 }
                                 finally { }
