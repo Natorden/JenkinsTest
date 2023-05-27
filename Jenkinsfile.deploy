@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    parameters {
-        string defaultValue: "", name: 'DEPLOY_NUMBER', trim: true
-    }
            stages {
             stage("Clean kubernetes") {
                 steps {
