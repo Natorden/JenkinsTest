@@ -11,7 +11,7 @@ pipeline {
             }
             stage("Deploy") {
                         steps {
-                        sh "DOCKER_USER=${DOCKER_USER} DEPLOY_NUMBER=${DEPLOY_NUMBER} kubectl apply -f LoadBalancer/deploy.yaml"
+                        sh "kubectl apply -f LoadBalancer/deploy.yaml --set image=faustis1337/search-engine-searchloadbalancer:10"
                         }
                     }
         }
