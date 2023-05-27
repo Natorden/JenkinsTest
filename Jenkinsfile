@@ -1,11 +1,6 @@
 pipeline {
   agent any
   
-  environment {
-                DOCKER_USER = credentials('docker-user')
-            }
-  
-  
     stages {
       stage("EchoNumber") {
           steps {
