@@ -19,7 +19,7 @@ pipeline {
                         steps {
                             script {
                                 try {
-                                sh "echo $$DOCKER_USER"
+                                sh "echo $DOCKER_USER"
                                     sh "docker compose --env-file .env down"
                                 }
                                 finally { }
